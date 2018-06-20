@@ -5,7 +5,7 @@ import requests
 # ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
-LINE_API_KEY = 'zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
+LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
 
 app = Flask(__name__)
  
@@ -54,10 +54,6 @@ def bot():
     # response_dict = {'สวัสดี':'สวัสดีครับ'}
     # closest = find_closest_sentence(response_dict, text)
     # replyQueue.append(reponse_dict[closest])
-
-    response_dict = {'สวัสดี':'สวัสดีครับ'}
-    closest = find_closest_sentence(response_dict, text)
-    replyQueue.append(reponse_dict[closest])
    
     # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
     replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
