@@ -54,6 +54,10 @@ def bot():
     # response_dict = {'สวัสดี':'สวัสดีครับ'}
     # closest = find_closest_sentence(response_dict, text)
     # replyQueue.append(reponse_dict[closest])
+
+    response_dict = {'สวัสดี':'สวัสดีครับ'}
+    closest = find_closest_sentence(response_dict, text)
+    replyQueue.append(reponse_dict[closest])
    
     # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
     replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
