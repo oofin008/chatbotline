@@ -60,7 +60,7 @@ def bot():
     
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
-    reply(replyToken, replyQueue[:5])
+    #reply(replyToken, replyQueue[:5])
     myID = print_user_profile(userID)
     reply(replyToken, myID)
     return 'OK', 200
@@ -90,7 +90,7 @@ def print_user_profile(user_id):
     headers = {
         'Authorization': LINE_API_KEY
     }
-    requests.get(LINE_API, headers=headers)
-    return
+    myID = requests.get(LINE_API, headers=headers)
+    return myID.json
 if __name__ == '__main__':
     app.run()
