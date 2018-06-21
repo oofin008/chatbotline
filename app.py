@@ -86,7 +86,7 @@ def reply(replyToken, textList):
     return
 
 def print_user_profile(user_id):
-    LINE_API = 'https://api.line.me/v2/bot/profile' + user_id
+    LINE_API = 'https://api.line.me/v2/bot/profile/' + user_id
     headers = {
         'Authorization': LINE_API_KEY
     }
