@@ -10,3 +10,4 @@ for Oil in Data.xpath('DataAccess'):
     product_name = Oil.xpath('PRODUCT/text()')[0]
     product_price = Oil.xpath('PRICE/text()') or [0]
     print(product_name, float(product_price[0]),'Baht')
+    print(type(product_name))

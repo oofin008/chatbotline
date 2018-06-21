@@ -61,7 +61,7 @@ def bot():
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
     reply(replyToken, replyQueue[:5])
-    
+    print_user_profile(userID)
     return 'OK', 200
  
 def reply(replyToken, textList):
@@ -84,5 +84,12 @@ def reply(replyToken, textList):
     requests.post(LINE_API, headers=headers, data=data)
     return
 
+def print_user_profile(user_id):
+    LINE_API = 'https://api.line.me/v2/bot/profile' + user_id
+    headers = {
+        'Authorization': LINE_API_KEY
+    }
+    requests.get(LINE_API, headers=headers)
+    return
 if __name__ == '__main__':
     app.run()
