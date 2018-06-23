@@ -63,7 +63,7 @@ def bot():
     myID = print_user_profile(userID)
     test = json.dumps(myID)
     replyQueue.append(test)
-    reply(replyToken, replyQueue[:5])
+    reply(replyToken, replyQueue[:])
     return 'OK', 200
  
 def reply(replyToken, textList):
