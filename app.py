@@ -60,10 +60,10 @@ def bot():
     
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
-    replyQueue.append(userID)
+    myID = print_user_profile(userID)
+    test = json.dumps(myID)
+    replyQueue.append(test)
     reply(replyToken, replyQueue[:5])
-    #myID = print_user_profile(userID)
-    reply(replyToken, myID)
     return 'OK', 200
  
 def reply(replyToken, textList):
