@@ -59,7 +59,7 @@ def bot():
     replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
     
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-    replyQueue.append(msg_in_string)
+    #replyQueue.append(msg_in_string)
     myID = print_user_profile(userID)
     test = json.dumps(myID)
     replyQueue.append(test)
