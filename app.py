@@ -95,6 +95,6 @@ def print_user_profile(user_id):
         'Authorization': LINE_API_KEY
     }
     myID = requests.get(LINE_API, headers=headers)
-    return myID.json
+    return
 if __name__ == '__main__':
     app.run()
