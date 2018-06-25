@@ -9,7 +9,7 @@ global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
 LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
 client_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
-
+result = client_api.service.CurrentOilPrice("en")
 
 app = Flask(__name__)
  
@@ -64,8 +64,8 @@ def bot():
     
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     #replyQueue.append(msg_in_string)
-    myID = print_user_profile(userID)
-    replyQueue.append(myID)
+    #myID = print_user_profile(userID)
+    #replyQueue.append(myID)
     reply(replyToken, replyQueue[:])
     return 'OK', 200
  
