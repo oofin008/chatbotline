@@ -1,2 +1,2 @@
-Currently working on how to get User profile and return
-user information in Text
+In "requirements.txt", don't forget to put "enter" between
+library names.

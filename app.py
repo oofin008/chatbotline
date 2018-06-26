@@ -3,13 +3,24 @@ import json
 import requests
 from zeep import Client
 from lxml import etree
+import re
 
-# ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
+
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
 LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
-client_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
-result = client_api.service.CurrentOilPrice("en")
+#ptt_api setup
+ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
+ptt_result = ptt_api.service.CurrentOilPrice("en")
+ptt_data = etree.fromstring(ptt_result)
+
+#get rid of html tag from data
+def cleanhtml(raw_html):
+    cleanr = re.compile('<.*?>')
+    cleantext = re.sub(cleanr, '', raw_html)
+    return cleantext
+ptt_data_list = cleanhtml(ptt_result)
+ptt_data_list = ptt_data_list.split()
 
 app = Flask(__name__)
  
@@ -44,11 +55,11 @@ def bot():
         text = msg_in_json["events"][0]['message']['text'].lower().strip()
         
         # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
-        # response_dict = {'สวัสดี':'สวัสดีครับ'}
-        # if text in response_dict:
-        #     replyQueue.append(reponse_dict[text])
-        # else:
-        #     replyQueue.append('ไม่รู้ว่าจะตอบอะไรดี TT')
+        response_dict = {'ราคาน้ำมัน':'oil price':'น้ำมัน':'today oil price':'ราคาน้ำมันวันนี้'}
+        if text in response_dict:
+             replyQueue.append(ptt_data_list)
+        else:
+             replyQueue.append('ไม่รู้ว่าจะตอบอะไรดี TT')
            
         # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ non-exact match
         # โดยที่มี method ชื่อ find_closest_sentence ที่ใช้การเปรียบเทียบประโยค
@@ -59,12 +70,11 @@ def bot():
         # replyQueue.append(reponse_dict[closest])
        
         # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
-        replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
+        # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
         
         # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
         #replyQueue.append(msg_in_string)
-        #myID = print_user_profile(userID)
-        #replyQueue.append(myID)
+        
         reply(replyToken, replyQueue[:])
         return 'OK', 200
  
