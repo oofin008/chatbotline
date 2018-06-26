@@ -9,4 +9,3 @@ urllib3==1.21.1
 Werkzeug==0.12.2
 zeep==2.5.0
 lxml==4.2.1
-regex==2.4.143
