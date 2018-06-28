@@ -3,7 +3,8 @@ import json
 import requests
 from zeep import Client
 from lxml import etree
-import re
+
+#objective : ทำให้มัน return ค่าจาก ptt_api ให้ได้ก่อน
 
 
 global LINE_API_KEY
@@ -14,13 +15,14 @@ ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
 ptt_result = ptt_api.service.CurrentOilPrice("en")
 ptt_data = etree.fromstring(ptt_result)
 
+#Can not use due to 're' library can not be found and imported
 #get rid of html tag from data
-def cleanhtml(raw_html):
-    cleanr = re.compile('<.*?>')
-    cleantext = re.sub(cleanr, '', raw_html)
-    return cleantext
-ptt_data_list = cleanhtml(ptt_result)
-ptt_data_list = ptt_data_list.split()
+#def cleanhtml(raw_html):
+    #cleanr = re.compile('<.*?>')
+    #cleantext = re.sub(cleanr, '', raw_html)
+    #return cleantext
+#ptt_data_list = cleanhtml(ptt_result)
+#ptt_data_list = ptt_data_list.split()
 
 app = Flask(__name__)
  
@@ -57,7 +59,7 @@ def bot():
         # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
         response_dict = {'ราคาน้ำมัน':'oil price':'น้ำมัน':'today oil price':'ราคาน้ำมันวันนี้'}
         if text in response_dict:
-             replyQueue.append(ptt_data_list)
+             replyQueue.append(ptt_result)
         else:
              replyQueue.append('ไม่รู้ว่าจะตอบอะไรดี TT')
            
