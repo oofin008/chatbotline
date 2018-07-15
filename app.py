@@ -7,6 +7,10 @@ from lxml import etree
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
 LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
+#ptt_api setup
+ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
+ptt_result = ptt_api.service.CurrentOilPrice("en")
+ptt_data = etree.fromstring(ptt_result)
 
 app = Flask(__name__)
  
