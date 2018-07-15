@@ -1,28 +1,11 @@
 ﻿from flask import Flask, request
 import json
 import requests
-from zeep import Client
-from lxml import etree
 
-#objective : ทำให้มัน return ค่าจาก ptt_api ให้ได้ก่อน
-
-
+# ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
 LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
-#ptt_api setup
-ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
-ptt_result = ptt_api.service.CurrentOilPrice("en")
-ptt_data = etree.fromstring(ptt_result)
-
-#Can not use due to 're' library can not be found and imported
-#get rid of html tag from data
-#def cleanhtml(raw_html):
-    #cleanr = re.compile('<.*?>')
-    #cleantext = re.sub(cleanr, '', raw_html)
-    #return cleantext
-#ptt_data_list = cleanhtml(ptt_result)
-#ptt_data_list = ptt_data_list.split()
 
 app = Flask(__name__)
  
@@ -30,6 +13,7 @@ app = Flask(__name__)
 def index():
     return 'This is chatbot server.'
 @app.route('/bot', methods=['POST'])
+
 def bot():
     # ข้อความที่ต้องการส่งกลับ
     replyQueue = list()
@@ -51,34 +35,34 @@ def bot():
     if msgType != 'text':
         reply(replyToken, ['Only text is allowed.'])
         return 'OK',200
-    else :
-        # ตรงนี้ต้องแน่ใจว่า msgType เป็นประเภท text ถึงเรียกได้ครับ 
-        # lower เพื่อให้เป็นตัวพิมพ์เล็ก strip เพื่อนำช่องว่างหัวท้ายออก ครับ
-        text = msg_in_json["events"][0]['message']['text'].lower().strip()
-        
-        # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
-        response_dict = {'ราคาน้ำมัน':'oil price':'น้ำมัน':'today oil price':'ราคาน้ำมันวันนี้'}
-        if text in response_dict:
-             replyQueue.append(ptt_result)
-        else:
-             replyQueue.append('ไม่รู้ว่าจะตอบอะไรดี TT')
-           
-        # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ non-exact match
-        # โดยที่มี method ชื่อ find_closest_sentence ที่ใช้การเปรียบเทียบประโยค
-        # เพื่อค้นหาประโยคที่ใกล้เคียงที่สุด อาจใช้เรื่องของ word embedding มาใช้งานได้ครับ
-        # simple sentence embeddings --> https://openreview.net/pdf?id=SyK00v5xx
-        # response_dict = {'สวัสดี':'สวัสดีครับ'}
-        # closest = find_closest_sentence(response_dict, text)
-        # replyQueue.append(reponse_dict[closest])
+    
+    # ตรงนี้ต้องแน่ใจว่า msgType เป็นประเภท text ถึงเรียกได้ครับ 
+    # lower เพื่อให้เป็นตัวพิมพ์เล็ก strip เพื่อนำช่องว่างหัวท้ายออก ครับ
+    text = msg_in_json["events"][0]['message']['text'].lower().strip()
+    
+    # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
+    # response_dict = {'สวัสดี':'สวัสดีครับ'}
+    # if text in response_dict:
+    #     replyQueue.append(reponse_dict[text])
+    # else:
+    #     replyQueue.append('ไม่รู้ว่าจะตอบอะไรดี TT')
        
-        # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
-        # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
-        
-        # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-        #replyQueue.append(msg_in_string)
-        
-        reply(replyToken, replyQueue[:])
-        return 'OK', 200
+    # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ non-exact match
+    # โดยที่มี method ชื่อ find_closest_sentence ที่ใช้การเปรียบเทียบประโยค
+    # เพื่อค้นหาประโยคที่ใกล้เคียงที่สุด อาจใช้เรื่องของ word embedding มาใช้งานได้ครับ
+    # simple sentence embeddings --> https://openreview.net/pdf?id=SyK00v5xx
+    # response_dict = {'สวัสดี':'สวัสดีครับ'}
+    # closest = find_closest_sentence(response_dict, text)
+    # replyQueue.append(reponse_dict[closest])
+   
+    # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
+    replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
+    
+    # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
+    replyQueue.append(msg_in_string)
+    reply(replyToken, replyQueue[:5])
+    
+    return 'OK', 200
  
 def reply(replyToken, textList):
     # Method สำหรับตอบกลับข้อความประเภท text กลับครับ เขียนแบบนี้เลยก็ได้ครับ
@@ -99,5 +83,6 @@ def reply(replyToken, textList):
     })
     requests.post(LINE_API, headers=headers, data=data)
     return
+
 if __name__ == '__main__':
     app.run()
