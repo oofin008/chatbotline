@@ -16,7 +16,7 @@ app = Flask(__name__)
  
 @app.route('/')
 def index():
-    return 'This is chatbot server.'
+    return ptt_result
 @app.route('/bot', methods=['POST'])
 
 def bot():
