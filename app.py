@@ -1,7 +1,8 @@
 ﻿from flask import Flask, request
 import json
 import requests
-
+from zeep import Client
+from lxml import etree
 # ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
