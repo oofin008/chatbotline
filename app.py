@@ -71,11 +71,11 @@ def bot():
     # replyQueue.append(reponse_dict[closest])
    
     # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
-    replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
+    #replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
     #replayQueue.append(test_val)
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
-    replyQueue.extend(test_val)
+    replyQueue.append(test_val)
     #message to be sent is up to 5
     reply(replyToken, replyQueue[:5])
     
