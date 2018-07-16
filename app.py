@@ -22,7 +22,8 @@ app = Flask(__name__)
 def index():
     #ptt_data_list = cleanhtml(ptt_result)
     #ptt_data_list = ptt_data_list.split()
-    return cleantext
+    test_val = "YOYO"
+    return test_val
 @app.route('/bot', methods=['POST'])
 
 def bot():
