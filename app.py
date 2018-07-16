@@ -16,7 +16,7 @@ app = Flask(__name__)
  
 @app.route('/')
 def index():
-    return ptt_data
+    return ptt_result
 @app.route('/bot', methods=['POST'])
 
 def bot():
