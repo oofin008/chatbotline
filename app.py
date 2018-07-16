@@ -4,6 +4,7 @@ import requests
 import regex
 from zeep import Client
 from lxml import etree
+from ptt_api import cleanhtml
 # ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
@@ -70,7 +71,7 @@ def bot():
    
     # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
     replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
-    replayQueue.append(ptt_result)
+    #replayQueue.append(ptt_result) can not use
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
     reply(replyToken, replyQueue[:])
