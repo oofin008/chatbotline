@@ -19,9 +19,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    ptt_data_list = cleanhtml(ptt_result)
-    ptt_data_list = ptt_data_list.split()
-    return ptt_result
+    #ptt_data_list = cleanhtml(ptt_result)
+    #ptt_data_list = ptt_data_list.split()
+    cleanr = re.compile('<.*?>')
+    cleantext = re.sub(cleanr, '', ptt_result)
+    return cleantext
 @app.route('/bot', methods=['POST'])
 
 def bot():
