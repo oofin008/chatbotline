@@ -15,6 +15,7 @@ ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
 ptt_result = ptt_api.service.CurrentOilPrice("en")
 ptt_data = etree.fromstring(ptt_result)
 test_val = cleanhtml(ptt_result)
+test_val = test_val.split()
 #cleanr = re.compile('<.*?>')
 #cleantext = re.sub(cleanr, '', ptt_result)
 
@@ -23,10 +24,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    #ptt_data_list = cleanhtml(ptt_result)
-    #ptt_data_list = ptt_data_list.split()
-    #test_val = cleanhtml(ptt_result) can't call inside
-    return test_val
+    return "HELLO WORLD"
+
 @app.route('/bot', methods=['POST'])
 
 def bot():
@@ -76,6 +75,7 @@ def bot():
     #replayQueue.append(test_val)
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
+    replyQueue.extend(test_val)
     reply(replyToken, replyQueue[:])
     
     return 'OK', 200

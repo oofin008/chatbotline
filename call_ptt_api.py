@@ -14,7 +14,7 @@ replyQueue.append(result)
 
 Data = etree.fromstring(result)
 mylist = cleanhtml(result)
-mylist = mylist.split()
+#mylist = mylist.split()
 print(type(result))
 print(type(mylist))
 print(type(Data))
