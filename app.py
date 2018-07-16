@@ -23,7 +23,7 @@ app = Flask(__name__)
 def index():
     #ptt_data_list = cleanhtml(ptt_result)
     #ptt_data_list = ptt_data_list.split()
-    test_val = "YOYO"
+    test_val = cleanhtml(ptt_result)
     return test_val
 @app.route('/bot', methods=['POST'])
 
