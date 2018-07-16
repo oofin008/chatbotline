@@ -1,6 +1,7 @@
 ﻿from flask import Flask, request
 import json
 import requests
+import regex
 from zeep import Client
 from lxml import etree
 # ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
