@@ -13,8 +13,10 @@ ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
 ptt_result = ptt_api.service.CurrentOilPrice("en")
 ptt_data = etree.fromstring(ptt_result)
 
+
+#function must declare under this line otherwise app will crash
 app = Flask(__name__)
- 
+
 @app.route('/')
 def index():
     return ptt_result
