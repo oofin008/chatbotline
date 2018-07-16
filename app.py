@@ -19,12 +19,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    ptt_data_list = cleanhtml(ptt_result)
+    ptt_data_list = ptt_data_list.split()
     return ptt_result
 @app.route('/bot', methods=['POST'])
 
 def bot():
-    ptt_data_list = cleanhtml(ptt_result)
-    ptt_data_list = ptt_data_list.split()
+    
     # ข้อความที่ต้องการส่งกลับ
     replyQueue = list()
    
