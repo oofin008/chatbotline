@@ -1,4 +1,5 @@
-﻿from flask import Flask, request
+# -*- coding: utf-8 -*-
+from flask import Flask, request
 import json
 import requests
 import regex
@@ -72,7 +73,7 @@ def bot():
    
     # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
     replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
-    replayQueue.append(test_val)
+    #replayQueue.append(test_val)
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
     reply(replyToken, replyQueue[:])
