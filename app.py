@@ -65,7 +65,7 @@ def bot():
     replayQueue.append(ptt_result)
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
-    reply(replyToken, replyQueue[:5])
+    reply(replyToken, replyQueue[:])
     
     return 'OK', 200
  
