@@ -12,7 +12,8 @@ LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltp
 ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
 ptt_result = ptt_api.service.CurrentOilPrice("en")
 ptt_data = etree.fromstring(ptt_result)
-
+cleanr = re.compile('<.*?>')
+cleantext = re.sub(cleanr, '', ptt_result)
 
 #function must declare under this line otherwise app will crash
 app = Flask(__name__)
@@ -21,8 +22,6 @@ app = Flask(__name__)
 def index():
     #ptt_data_list = cleanhtml(ptt_result)
     #ptt_data_list = ptt_data_list.split()
-    cleanr = re.compile('<.*?>')
-    cleantext = re.sub(cleanr, '', ptt_result)
     return cleantext
 @app.route('/bot', methods=['POST'])
 
