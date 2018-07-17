@@ -12,6 +12,7 @@ def ptt_result_API():
     for Oil in Data.xpath('DataAccess'):
         product_name = Oil.xpath('PRODUCT/text()')[0]
         product_price = Oil.xpath('PRICE/text()') or [0]
-        mylist.append(product_name + '\n' + str(product_price.pop(0)) + 'baht \n')
-        mystring += mylist[-1]
+        if(product_price[0] != 0):
+            mylist.append(product_name + '\n' + str(product_price.pop(0)) + ' baht \n')
+            mystring += mylist[-1]
     return mystring
