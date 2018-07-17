@@ -5,26 +5,19 @@ import requests
 import regex
 from zeep import Client
 from lxml import etree
-from ptt_api import cleanhtml
+from oil_price_api import ptt_result_API
 # ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
 LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
-#ptt_api setup
-ptt_api = Client('http://www.pttplc.com/webservice/pttinfo.asmx?WSDL')
-ptt_result = ptt_api.service.CurrentOilPrice("en")
-ptt_data = etree.fromstring(ptt_result)
-test_val = cleanhtml(ptt_result)
-test_val = test_val.split()
-#cleanr = re.compile('<.*?>')
-#cleantext = re.sub(cleanr, '', ptt_result)
+test_val = ptt_result_API()
 
 #function must declare under this line otherwise app will crash
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "HELLO WORLD"
+    return test_val
 
 @app.route('/bot', methods=['POST'])
 
@@ -70,15 +63,11 @@ def bot():
     # closest = find_closest_sentence(response_dict, text)
     # replyQueue.append(reponse_dict[closest])
    
-    # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
-    #replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
-    #replayQueue.append(test_val)
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-    replyQueue.append(msg_in_string)
-    replyQueue.extend(test_val)
+    #replyQueue.append(msg_in_string)
+    replyQueue.append(test_val)
     #message to be sent is up to 5
     reply(replyToken, replyQueue[:5])
-    reply(replyToken, replyQueue[5:])
     return 'OK', 200
  
 def reply(replyToken, textList):
@@ -100,11 +89,6 @@ def reply(replyToken, textList):
     })
     requests.post(LINE_API, headers=headers, data=data)
     return
-
-def cleanhtml(raw_html):
-    cleanr = re.compile('<.*?>')
-    cleantext = re.sub(cleanr, '', raw_html)
-    return cleantext
 
 
 if __name__ == '__main__':
