@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 from flask import Flask, request
 import json
 import requests
