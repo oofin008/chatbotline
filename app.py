@@ -66,7 +66,7 @@ def bot():
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     #replyQueue.append(msg_in_string)
     #message to be sent is up to 5
-    replyQueue.append(test_val)
+    #replyQueue.append(test_val)
     reply(replyToken, replyQueue[:5])
     return 'OK', 200
  
