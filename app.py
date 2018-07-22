@@ -50,11 +50,12 @@ def bot():
     text = msg_in_json["events"][0]['message']['text'].lower().strip()
     
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
+    random_list = ['อะไรนะ?', 'what?', 'Hello World', 'Yoyo']
     response_dict = ['oil','oil price','ราคาน้ำมัน','น้ำมัน']
     if text in response_dict:
         replyQueue.append(test_val)
     else:
-        replyQueue.append('ไม่รู้ว่าจะตอบอะไรดี TT')
+        replyQueue.append(random.choice(random_list))
        
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ non-exact match
     # โดยที่มี method ชื่อ find_closest_sentence ที่ใช้การเปรียบเทียบประโยค
