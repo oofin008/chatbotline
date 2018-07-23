@@ -93,5 +93,21 @@ def reply(replyToken, textList):
     return
 
 
+@app.route('/dialogflow', methods=['POST'])
+def dialogflow():
+    msg_in_json = requests.get_json()
+    msg_in_str = json.dumps(msg_in_json)
+    reply()
+    #replyToken = msg_in_json["events"][0]['replyToken']
+    return 'OK', 200
+
+def reply():
+    headers = {
+        'Content-Type': 'application/json'
+        }
+    msgs = 'hello'
+    requests.post(headers=headers, data=msgs)
+    return
+
 if __name__ == '__main__':
     app.run()

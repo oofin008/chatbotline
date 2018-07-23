@@ -1,10 +1,7 @@
 #test DICT python
 import random
+import dialogflow as df
 
-test = ['fick','fuck','fock']
-val = 'fick'
+val = 'oil price'
 
-if val in test:
-    print(random.choice(test))
-else:
-    print('hi')
+df.detect_intent_
