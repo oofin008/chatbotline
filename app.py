@@ -11,6 +11,7 @@ from oil_price_api import ptt_result_API
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
 LINE_API_KEY = 'Bearer zWj79zc/UZsA5V1QaJqTQVTaFhDAjsfMQFQiD4DBOnHBT4DlVJRiv9ltpf0jeWQ3j+nbmrzySep65t+lEvPEI4tcsI129cVzsh6AoispDi9u/t0zOIgdW2v/wmy+mgPOrtDX42X7Rg33klsUmqUxBAdB04t89/1O/w1cDnyilFU='
+DIALOGFLOW_API_KEY = 'Bearer 139af96f81db4dea9540cf139f180612'
 test_val = ptt_result_API()
 
 #function must declare under this line otherwise app will crash
@@ -90,23 +91,6 @@ def reply(replyToken, textList):
         "messages":msgs
     })
     requests.post(LINE_API, headers=headers, data=data)
-    return
-
-
-@app.route('/dialogflow', methods=['POST'])
-def dialogflow():
-    msg_in_json = requests.get_json()
-    msg_in_str = json.dumps(msg_in_json)
-    reply()
-    #replyToken = msg_in_json["events"][0]['replyToken']
-    return 'OK', 200
-
-def reply():
-    headers = {
-        'Content-Type': 'application/json'
-        }
-    msgs = 'hello'
-    requests.post(headers=headers, data=msgs)
     return
 
 if __name__ == '__main__':
