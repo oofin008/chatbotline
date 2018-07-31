@@ -133,7 +133,5 @@ def quickreply():
     }
     return 'OK', 200
 
-@handler.add(MessageEvent, message=TextMessage)
-
 if __name__ == '__main__':
     app.run()
