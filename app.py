@@ -93,5 +93,42 @@ def reply(replyToken, textList):
     requests.post(LINE_API, headers=headers, data=data)
     return
 
+@app.route('/quickreply', methods=['GET'])
+def quickreply():
+    data = {
+      "type": "text", // 
+      "text": "Select your favorite food category or send me your location!",
+      "quickReply": { // 
+        "items": [
+          {
+            "type": "action", // 
+            "imageUrl": "https://example.com/sushi.png",
+            "action": {
+              "type": "message",
+              "label": "Sushi",
+              "text": "Sushi"
+            }
+          },
+          {
+            "type": "action",
+            "imageUrl": "https://example.com/tempura.png",
+            "action": {
+              "type": "message",
+              "label": "Tempura",
+              "text": "Tempura"
+            }
+          },
+          {
+            "type": "action", // 
+            "action": {
+              "type": "location",
+              "label": "Send location"
+            }
+          }
+        ]
+      }
+    }
+
+    return data
 if __name__ == '__main__':
     app.run()
