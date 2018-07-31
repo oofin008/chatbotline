@@ -133,7 +133,9 @@ def quickreply():
         ]
       }
     }
-    return data, 200
+
+    res = json.dumps(res, indent=4)
+    return res, 200
 
 if __name__ == '__main__':
     app.run()
