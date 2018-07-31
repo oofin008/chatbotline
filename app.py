@@ -93,8 +93,11 @@ def reply(replyToken, textList):
     requests.post(LINE_API, headers=headers, data=data)
     return
 
-@app.route('/quickreply', methods=['GET'])
+@app.route('/quickreply', methods=['POST'])
 def quickreply():
+    msg_in_json = request.get_json()
+    msg_in_string = json.dumps(msg_in_json)
+    msgType =  msg_in_json["events"][0]['message']['type']
     data = {
       "type": "text",
       "text": "Select your favorite food category or send me your location!",
@@ -128,7 +131,9 @@ def quickreply():
         ]
       }
     }
+    return 'OK', 200
 
-    return data
+@handler.add(MessageEvent, message=TextMessage)
+
 if __name__ == '__main__':
     app.run()
