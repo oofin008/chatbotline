@@ -96,12 +96,12 @@ def reply(replyToken, textList):
 @app.route('/quickreply', methods=['GET'])
 def quickreply():
     data = {
-      "type": "text", // 
+      "type": "text",
       "text": "Select your favorite food category or send me your location!",
-      "quickReply": { // 
+      "quickReply": { 
         "items": [
           {
-            "type": "action", // 
+            "type": "action",
             "imageUrl": "https://example.com/sushi.png",
             "action": {
               "type": "message",
@@ -119,7 +119,7 @@ def quickreply():
             }
           },
           {
-            "type": "action", // 
+            "type": "action",
             "action": {
               "type": "location",
               "label": "Send location"
