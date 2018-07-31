@@ -100,7 +100,7 @@ def quickreply():
     msgType =  msg_in_json["events"]
     replyToken = msg_in_json["events"][0]['replyToken']
     print(json.dumps(msg_in_json, indent=4))
-    data = {
+    data = [{
       "type": "text",
       "text": "Select your favorite food category or send me your location!",
       "quickReply": { 
@@ -132,7 +132,7 @@ def quickreply():
           }
         ]
       }
-    }
+    }]
     reply(replyToken,data)
     return 'OK', 200
 
