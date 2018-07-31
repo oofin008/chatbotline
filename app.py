@@ -133,7 +133,7 @@ def quickreply():
         ]
       }
     }
-    return 'OK', 200
+    return data, 200
 
 if __name__ == '__main__':
     app.run()
