@@ -97,7 +97,9 @@ def reply(replyToken, textList):
 def quickreply():
     msg_in_json = request.get_json()
     msg_in_string = json.dumps(msg_in_json)
-    msgType =  msg_in_json["events"][0]['message']['type']
+    msgType =  msg_in_json["events"]
+    print(json.dumps(msg_in_json, indent=4))
+    print(msgType)
     data = {
       "type": "text",
       "text": "Select your favorite food category or send me your location!",
