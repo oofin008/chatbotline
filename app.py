@@ -98,8 +98,8 @@ def quickreply():
     msg_in_json = request.get_json()
     msg_in_string = json.dumps(msg_in_json)
     msgType =  msg_in_json["events"]
+    replyToken = msg_in_json["events"][0]['replyToken']
     print(json.dumps(msg_in_json, indent=4))
-    print(msgType)
     data = {
       "type": "text",
       "text": "Select your favorite food category or send me your location!",
@@ -133,13 +133,22 @@ def quickreply():
         ]
       }
     }
+    reply(replyToken,data)
+    return 'OK', 200
 
-    res = json.dumps(data, indent=4)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    r.headers['Authorization'] = LINE_API_KEY
-    return r, 200
-
+def reply(replyToken, textList):
+    # Method สำหรับตอบกลับข้อความประเภท text กลับครับ เขียนแบบนี้เลยก็ได้ครับ
+    LINE_API = 'https://api.line.me/v2/bot/message/reply'
+    headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': LINE_API_KEY
+    }
+    data = json.dumps({
+        "replyToken":replyToken,
+        "messages":textList
+    })
+    requests.post(LINE_API, headers=headers, data=data)
+    return
 
 if __name__ == '__main__':
     app.run()
