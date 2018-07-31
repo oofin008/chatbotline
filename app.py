@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
-from flask import Flask, request
+from flask import Flask, request, make_response
 import json
 import requests
 import regex
@@ -135,7 +135,11 @@ def quickreply():
     }
 
     res = json.dumps(data, indent=4)
-    return res, 200
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    r.headers['Authorization'] = LINE_API_KEY
+    return r, 200
+
 
 if __name__ == '__main__':
     app.run()
