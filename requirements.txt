@@ -8,5 +8,5 @@ six==1.10.0
 urllib3==1.21.1
 Werkzeug==0.12.2
 zeep==2.5.0
-lxml==4.2.1
+lxml==4.9.1
 regex==2018.6.21
